@@ -68,7 +68,7 @@ example config for details.
                     ]
                 },
                 "base_responder": {
-                    "command_prefix": "."
+                    "command_prefix": "!"
                 }
             }
         }
