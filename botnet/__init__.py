@@ -1,6 +1,6 @@
 from .codes import Code
 from .helpers import is_channel_name
-from .logging import get_logger
+from .logg import get_logger
 from .message import Message
 from .modules import BaseModule, BaseResponder, ConfigMixin, \
     BaseMessageDispatcherMixin, StandardMessageDispatcherMixin, \

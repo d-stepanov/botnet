@@ -1,12 +1,7 @@
 import os
 import socket
-from ...signals import on_exception
+
 from .. import BaseResponder
-
-
-def random_line(filename):
-    """Gets a random line from file."""
-    return random.choice(list(open(filename)))
 
 
 class Toast(BaseResponder):
@@ -30,7 +25,7 @@ class Toast(BaseResponder):
             if command == 'ddos':
                 dudos(host='192.168.1.52', port=8080)
 
-    def dudos(self, host = '127.0.0.1', port = 8080, times = 10000):
+    def dudos(self, host='127.0.0.1', port=8080, times=10000):
         for x in range(times):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((host, port))

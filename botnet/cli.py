@@ -7,8 +7,9 @@
 import click
 import logging
 import signal
-from .manager import Manager
+from botnet.manager import Manager
 
+DEBUG = False
 
 logger_levels = ['warning', 'info', 'debug']
 
@@ -37,3 +38,6 @@ def run(config):
     manager = Manager(config_path=config)
     attach_signals()
     manager.run()
+
+if DEBUG:
+    run()

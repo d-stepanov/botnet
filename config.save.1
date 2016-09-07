@@ -1,0 +1,49 @@
+{
+    "modules": ["irc", "meta", "toast"],
+    "module_config": {
+        "botnet": {
+            "irc": {
+                "server": "{
+    "modules": ["irc", "meta"],
+    "module_config": {
+        "botnet": {
+            "irc": {
+                "server": "irc.example.com",
+                "port": 6697,
+                "ssl": true,
+                "nick": "my_bot",
+                "channels": [
+                    {
+                        "name": "#my-channel",
+                        "password": null
+                    }
+                ],
+                "autosend": [
+                    "PRIVMSG your_nick :I connected!"
+                ]
+            },
+            "base_responder": {
+                "command_prefix": "!"
+            }
+        }
+    }
+}",
+                "port": 6697,
+                "ssl": true,
+                "nick": "my_peka",
+                "channels": [
+                    {
+                        "name": "#botchan",
+                        "password": null
+                    }
+                ],
+                "autosend": [
+                    "PRIVMSG your_nick :I connected!"
+                ]
+            },
+            "base_responder": {
+                "command_prefix": "!"
+            }
+        }
+    }
+}
