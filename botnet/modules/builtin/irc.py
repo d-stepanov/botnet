@@ -9,6 +9,9 @@ from ...signals import message_in, message_out, on_exception
 from .. import BaseModule
 from ..lib import parse_command
 from ..mixins import AdminMessageDispatcherMixin, ConfigMixin
+import sys
+
+getex = lambda e: print('{}: line {}'.format(e, sys.exc_info()[-1].tb_lineno))
 
 
 class InactivityMonitor(object):
@@ -258,8 +261,13 @@ class IRC(AdminMessageDispatcherMixin, ConfigMixin, BaseModule):
             self.soc = ssl.wrap_socket(self.soc)
         else:
             self.logger.warning('SSL disabled')
-        self.soc.connect((self.config_get('server'), self.config_get('port')))
-        self.soc.settimeout(1)
+        print('Connecting to ' + self.config_get('server') + str(self.config_get('port')))
+        try:
+            self.soc.connect((self.config_get('server'), self.config_get('port')))
+            self.soc.settimeout(1)
+        except Exception as e:
+            print(e)
+
 
     def disconnect(self):
         self.send('QUIT :Disconnecting')
@@ -267,7 +275,7 @@ class IRC(AdminMessageDispatcherMixin, ConfigMixin, BaseModule):
     def identify(self):
         """Identifies with a server."""
         self.send('NICK ' + self.config_get('nick'))
-        #self.send('USER botnet botnet botnet :Python bot')
+        self.send('USER botnet botnet botnet :Python bot')
 
     def join_from_config(self):
         """Joins all channels defined in the config."""
@@ -307,11 +315,13 @@ class IRC(AdminMessageDispatcherMixin, ConfigMixin, BaseModule):
                             break
                         for line in self.process_data(data):
                             try:
+                                print(line)
                                 self.process_line(line)
                             except Exception as e:
+                                print(e)
                                 on_exception.send(self, e=e)
                     except (socket.timeout, ssl.SSLWantReadError) as e:
-                        pass
+                        print(e)
             finally:
                 if self.soc:
                     self.soc.close()
@@ -321,7 +331,9 @@ class IRC(AdminMessageDispatcherMixin, ConfigMixin, BaseModule):
             try:
                 self.update()
                 self.stop_event.wait(self.deltatime)
-            except:
+            except Exception as e:
                 pass
+                # print(e)
+
 
 mod = IRC

