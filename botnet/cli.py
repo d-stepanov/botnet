@@ -36,9 +36,11 @@ def run(config):
         for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
             signal.signal(sig, signal_handler)
 
+    print('Bot started...')
     manager = Manager(config_path=config)
     attach_signals()
     manager.run()
+
 
 # if DEBUG:
 run()

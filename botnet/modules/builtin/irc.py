@@ -261,13 +261,12 @@ class IRC(AdminMessageDispatcherMixin, ConfigMixin, BaseModule):
             self.soc = ssl.wrap_socket(self.soc)
         else:
             self.logger.warning('SSL disabled')
-        print('Connecting to ' + self.config_get('server') + str(self.config_get('port')))
+        print('Connecting to {}:{} '.format(self.config_get('server'), str(self.config_get('port'))))
         try:
             self.soc.connect((self.config_get('server'), self.config_get('port')))
             self.soc.settimeout(1)
         except Exception as e:
-            print(e)
-
+            getex(e)
 
     def disconnect(self):
         self.send('QUIT :Disconnecting')
