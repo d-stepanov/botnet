@@ -320,7 +320,7 @@ class IRC(AdminMessageDispatcherMixin, ConfigMixin, BaseModule):
                                 print(e)
                                 on_exception.send(self, e=e)
                     except (socket.timeout, ssl.SSLWantReadError) as e:
-                        print(e)
+                        pass
             finally:
                 if self.soc:
                     self.soc.close()
@@ -332,7 +332,5 @@ class IRC(AdminMessageDispatcherMixin, ConfigMixin, BaseModule):
                 self.stop_event.wait(self.deltatime)
             except Exception as e:
                 pass
-                # print(e)
-
 
 mod = IRC
