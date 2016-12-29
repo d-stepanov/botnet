@@ -12,7 +12,7 @@ user-maintained external modules distributed in a form of Python packages.
 
 ## Installation
 
-    pip install git+https://github.com/d-stepanov/botnet
+    pip install git+https://github.com/stellarious/botnet
 
 ## Usage
 
